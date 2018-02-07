@@ -12,7 +12,7 @@
 let
 	jobs = rec {
 		build = {
-			nonlibc = nixpkgs.callPackage ./default.nix {};
+			nonlibc = import ./default.nix {};
 		};
 	};
 in jobs

@@ -50,10 +50,9 @@ elif _dep == 'static'
 else
 	error('-Ddep_type expects "shared" or "static"; got ' + _dep)
 endif
+
 # insert deps here:
-
 deps = [ ]
-
 
 inc = include_directories('include')
 subdir('include')
@@ -62,11 +61,12 @@ subdir('test')
 subdir('util')
 subdir('man')
 
+# Custom target to build a debian package for ARM
+# Invoke by using 'ninja nonlibc_0.2.2_armhf.deb'
 deb_pkg = find_program('build_package.sh')
 
-package = custom_target('debian package',
-			build_always : true,
+package = custom_target('debpackage',
+			build_always : false,
 			depends : [ nonlibc, nonlibc_static ],
 			output : 'nonlibc_0.2.2_armhf.deb',
 			command : deb_pkg)
-
